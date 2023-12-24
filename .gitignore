@@ -13,6 +13,7 @@ target
 *.iml
 *.ipr
 src/test-logs
+.allure
 .idea
 
 ### Eclipse ###
