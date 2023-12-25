@@ -50,12 +50,11 @@ public class CafeTest extends TestBase {
     }
 
     @Test(priority = 1)
-    public void createNewCafe() throws InterruptedException {
+    public void createNewCafe()  {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
         cafePage.createNewCafe(Constants.CAFE_NAME,Constants.CAFE_CITY,Constants.CAFE_ADDRESS,Constants.CAFE_EMAIL,
                 Constants.CAFE_PHONE_NEW,Constants.CAFE_OPEN,Constants.CAFE_CLOSE);
-        Thread.sleep(3333);
         assertTrue(cafePage.isTextOnPage(Constants.CAFE_NAME));
     }
 
