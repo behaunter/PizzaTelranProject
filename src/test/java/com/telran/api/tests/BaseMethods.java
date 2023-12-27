@@ -12,7 +12,6 @@ import static org.hamcrest.number.OrderingComparison.lessThan;
 public class BaseMethods {
 
     public static PizzaDto findCheapestPizza(List<PizzaDto> pizzas) {
-
         PizzaDto cheapest = pizzas.get(0);
 
         for (PizzaDto pizza : pizzas) {
@@ -24,54 +23,25 @@ public class BaseMethods {
     }
 
     public static List<PizzaDto> getAllPizzasRequest() {
-        List<PizzaDto> response = given()
-                .when()
-                .get("pizzas")
-                .then()
-                .log().all()
-                .time(lessThan(Data.TWO_SECONDS))
-                .extract().response().jsonPath().getList("", PizzaDto.class);
+        List<PizzaDto> response = given().when().get("pizzas").then().log().all().time(lessThan(Data.TWO_SECONDS)).extract().response().jsonPath().getList("", PizzaDto.class);
         return response;
     }
 
     public static List<CafeDto> getAllCafesRequest() {
-        List<CafeDto> response = given()
-                .when()
-                .get("cafes")
-                .then()
-                .log().all()
-                .time(lessThan(Data.TWO_SECONDS))
-                .extract().response().jsonPath().getList("", CafeDto.class);
+        List<CafeDto> response = given().when().get("cafes").then().log().all().time(lessThan(Data.TWO_SECONDS)).extract().response().jsonPath().getList("", CafeDto.class);
         return response;
     }
 
     public static PizzaDto getPizzaByIdRequest(int id) {
-        return given()
-                .when()
-                .get("pizzas/"+ id)
-                .then()
-                .log().all()
-                .time(lessThan(Data.TWO_SECONDS))
-                .extract().response().as(PizzaDto.class);
+        return given().when().get("pizzas/" + id).then().log().all().time(lessThan(Data.TWO_SECONDS)).extract().response().as(PizzaDto.class);
     }
 
     public static CafeDto getCafeByIdRequest(int id) {
-        return given()
-                .when()
-                .get("cafes/"+ id)
-                .then()
-                .log().all()
-                .time(lessThan(Data.TWO_SECONDS))
-                .extract().response().as(CafeDto.class);
+        return given().when().get("cafes/" + id).then().log().all().time(lessThan(Data.TWO_SECONDS)).extract().response().as(CafeDto.class);
     }
 
     public static ErrorDto incorrectRequests(String currentUrl) {
-        return given()
-                .when()
-                .get(currentUrl)
-                .then()
-                .log().all()
-                .time(lessThan(Data.TWO_SECONDS))
-                .extract().response().as(ErrorDto.class);
+        return given().when().get(currentUrl).then().log().all().time(lessThan(Data.TWO_SECONDS)).extract().response().as(ErrorDto.class);
     }
+
 }

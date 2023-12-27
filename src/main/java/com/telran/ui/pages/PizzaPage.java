@@ -3,9 +3,12 @@ package com.telran.ui.pages;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class PizzaPage extends BasePage{
+public class PizzaPage extends BasePage {
     public Locator pizzaImage;
     public Locator rowsInTable;
     public Locator cafeName;
@@ -20,9 +23,6 @@ public class PizzaPage extends BasePage{
     public Locator validationErrorSize;
     public Locator validationErrorIngredients;
     public Locator notIntValueError;
-
-
-
 
     public PizzaPage(Page page) {
         super(page);
@@ -39,13 +39,10 @@ public class PizzaPage extends BasePage{
         this.submitBtn = page.locator("#submit_button");
         this.validationErrorSize = page.locator("xpath=//div[contains(text(),'Put a valid size, please')]");
         this.validationErrorIngredients = page.locator("xpath=//div[contains(text(),'Put a valid ingredients, please')]");
-        this.notIntValueError = page.locator("xpath=//div[contains(text(),'Failed to convert property " +
-                "value of type java.lang')]");
-
-
+        this.notIntValueError = page.locator("xpath=//div[contains(text(),'Failed to convert property " + "value of type java.lang')]");
     }
-    public PizzaPage createNewPizza(String name,String size, String price, String ingredients,String option){
 
+    public PizzaPage createNewPizza(String name, String size, String price, String ingredients, String option) {
         newButton.click();
         nameInput.clear();
         nameInput.fill(name);
@@ -57,9 +54,8 @@ public class PizzaPage extends BasePage{
         return this;
     }
 
-    public PizzaPage editPizza(int cafeNumber,String name,String size, String price, String ingredients,String option){
-        page.locator("xpath=//body[1]/div[1]/main[1]/section[1]/table[1]/tbody[1]/tr[" + cafeNumber +
-                "]/td[9]/form[1]/div[2]/button[1]").click();
+    public PizzaPage editPizza(int cafeNumber, String name, String size, String price, String ingredients, String option) {
+        page.locator("xpath=//body[1]/div[1]/main[1]/section[1]/table[1]/tbody[1]/tr[" + cafeNumber + "]/td[9]/form[1]/div[2]/button[1]").click();
         nameInput.clear();
         nameInput.fill(name);
         sizeInput.clear();
@@ -72,35 +68,32 @@ public class PizzaPage extends BasePage{
         submitBtn.click();
         return this;
     }
+
     public PizzaPage deletePizza(int pizzaNumber) {
-        page.locator("xpath=//body[1]/div[1]/main[1]/section[1]/table[1]/tbody[1]/tr["+ pizzaNumber +" ]/" +
-                "td[10]/form[1]/div[2]/button[1]").click();
+        page.locator("xpath=//body[1]/div[1]/main[1]/section[1]/table[1]/tbody[1]/tr[" + pizzaNumber + " ]/" + "td[10]/form[1]/div[2]/button[1]").click();
         return this;
     }
 
-
     //Firstly ,i get info about pizza in PizzaPage from Table, then i go to shop and take info about pizzas there
     // to check if they are same.
-
-
     public boolean checkPizzasInfo(int pizzaNumber) {
         List<Map<String, String>> generalPizzas = new ArrayList<>();
         int rowCount = rowsInTable.count();
 
         for (int i = 1; i < rowCount; i++) {
             Map<String, String> generalPizza = new HashMap<>();
-            generalPizza.put("name", page.locator("xpath=//tbody/tr["+ i + "]/td[3]").innerText());
-            generalPizza.put("cafe", page.locator("xpath=//tbody/tr["+ i + "]/td[7]").innerText());
+            generalPizza.put("name", page.locator("xpath=//tbody/tr[" + i + "]/td[3]").innerText());
+            generalPizza.put("cafe", page.locator("xpath=//tbody/tr[" + i + "]/td[7]").innerText());
             generalPizzas.add(generalPizza);
         }
-        page.locator("xpath=//tbody/tr["+ pizzaNumber + "]/td[8]").click();
+        page.locator("xpath=//tbody/tr[" + pizzaNumber + "]/td[8]").click();
         List<Map<String, String>> cafePizzas = new ArrayList<>();
 
         int rowCount2 = rowsInTable.count();
         for (int i = 1; i < rowCount2; i++) {
 
             Map<String, String> cafePizza = new HashMap<>();
-            cafePizza.put("name", page.locator("xpath=//tbody/tr["+ i + "]/td[3]").innerText());
+            cafePizza.put("name", page.locator("xpath=//tbody/tr[" + i + "]/td[3]").innerText());
             cafePizza.put("cafe", cafeName.innerText());
             cafePizzas.add(cafePizza);
         }
@@ -112,9 +105,8 @@ public class PizzaPage extends BasePage{
                 break;
             }
         }
-return containsAllPizzas;
+        return containsAllPizzas;
     }
-
 
     //Firstly, i get url of image, go to this page and check if there is no 404 page
     public boolean areAllImagesVisible() {
@@ -129,4 +121,5 @@ return containsAllPizzas;
         }
         return b;
     }
+
 }

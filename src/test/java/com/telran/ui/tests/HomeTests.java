@@ -2,29 +2,28 @@ package com.telran.ui.tests;
 
 import com.telran.ui.pages.HomePage;
 import org.testng.annotations.BeforeMethod;
-import testdata.Constants;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import testdata.Constants;
 
 import static org.testng.Assert.*;
 
-public class HomeTest extends TestBase{
+public class HomeTests extends TestBase {
 
     HomePage homePage;
 
     @BeforeMethod
     public void prepare() {
-     homePage = new HomePage(page);
-     homePage.clickOnHomeLink();
+        homePage = new HomePage(page);
+        homePage.clickOnHomeLink();
     }
 
     @Test
-    public void checkTitleOfPage(){
+    public void checkTitleOfPage() {
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
     }
 
     @Test
-    public void checkHeaderLogoOnPage(){
+    public void checkHeaderLogoOnPage() {
         assertTrue(homePage.headerLogo.innerText().contains(Constants.LOGO_TEXT));
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
         homePage.clickOnHeaderLogo();
@@ -33,36 +32,34 @@ public class HomeTest extends TestBase{
     }
 
     @Test
-    public void checkFooterLogoOnPage(){
+    public void checkFooterLogoOnPage() {
         assertTrue(homePage.headerLogo.innerText().contains(Constants.LOGO_TEXT));
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
         homePage.clickOnFooterLogo();
         assertTrue(homePage.headerLogo.innerText().contains(Constants.LOGO_TEXT));
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
-
     }
+
     @Test
-    public void checkLinkToCafePage(){
+    public void checkLinkToCafePage() {
         homePage.goToCafePage();
         String currentCafeUrl = page.url();
         assertNotEquals(currentCafeUrl, Constants.HOME_PAGE_URL);
         assertFalse(homePage.h1Title.isVisible());
         assertTrue(homePage.isTextOnPage(Constants.CAFE_PHONE));
-
-
     }
+
     @Test
-    public void checkButtonToCafesPage(){
+    public void checkButtonToCafesPage() {
         homePage.clickOnCafesBtn();
         String currentCafeUrl = page.url();
         assertNotEquals(currentCafeUrl, Constants.HOME_PAGE_URL);
         assertFalse(homePage.h1Title.isVisible());
         assertTrue(homePage.isTextOnPage(Constants.CAFE_PHONE));
-
-
     }
+
     @Test
-    public void checkLinkToPizzaPage(){
+    public void checkLinkToPizzaPage() {
         homePage.goToPizzaPage();
         String currentCafeUrl = page.url();
         assertNotEquals(currentCafeUrl, Constants.HOME_PAGE_URL);
@@ -71,7 +68,7 @@ public class HomeTest extends TestBase{
     }
 
     @Test
-    public void checkButtonToPizzasPage(){
+    public void checkButtonToPizzasPage() {
         homePage.clickOnPizzasBtn();
         String currentCafeUrl = page.url();
         assertNotEquals(currentCafeUrl, Constants.HOME_PAGE_URL);
@@ -80,11 +77,12 @@ public class HomeTest extends TestBase{
     }
 
     @Test
-    public void checkLinkToLoginPage(){
+    public void checkLinkToLoginPage() {
         homePage.goToLoginPage();
         String currentCafeUrl = page.url();
         assertNotEquals(currentCafeUrl, Constants.HOME_PAGE_URL);
         assertFalse(homePage.h1Title.isVisible());
         assertTrue(homePage.isTextOnPage(Constants.LOGIN_PAGE_TEXT));
     }
+
 }

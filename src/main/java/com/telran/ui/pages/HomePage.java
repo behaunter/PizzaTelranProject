@@ -15,17 +15,14 @@ public class HomePage extends BasePage {
         this.pizzaBtn = page.locator("#pizzas_button");
     }
 
-    public HomePage clickOnCafesBtn(){
+    public HomePage clickOnCafesBtn() {
         cafesBtn.click();
         return this;
     }
 
-    public HomePage clickOnPizzasBtn(){
+    public HomePage clickOnPizzasBtn() {
         pizzaBtn.click();
         return this;
     }
-
-
-
 
 }

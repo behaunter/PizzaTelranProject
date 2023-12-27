@@ -9,6 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.List;
+
 import static org.testng.Assert.*;
 
 
@@ -20,7 +21,6 @@ public class ApiTests extends BaseMethods {
     @Epic(value = "Positive Api Test")
     @Test(priority = 1)
     public void getAllPizzas() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
@@ -36,16 +36,16 @@ public class ApiTests extends BaseMethods {
             assertNotNull(pizza.getImage());
         }
     }
+
     @Epic(value = "Positive Api Test")
     @Test(priority = 1)
     public void getAllCafes() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
         List<CafeDto> response = getAllCafesRequest();
 
-         cafeId = response.getFirst().getId();
+        cafeId = response.getFirst().getId();
 
 
         for (CafeDto cafe : response) {
@@ -58,103 +58,92 @@ public class ApiTests extends BaseMethods {
         }
     }
 
-
     @Epic(value = "Positive Api Test")
     @Test(priority = 2)
     public void getPizzaById() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
         PizzaDto response = getPizzaByIdRequest(pizzaId);
     }
-    
 
     @Test
     public void getPizzaByIncorrectId() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.SERVER_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.INCORRECT_PIZZA_ID);
 
-        Assert.assertEquals(response.getError(),Data.EXPECTED_SERVER_ERROR);
+        Assert.assertEquals(response.getError(), Data.EXPECTED_SERVER_ERROR);
     }
+
     @Epic(value = "Negative Api Test")
     @Test
     public void getPizzaByNotIntId() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.CLIENT_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.NOT_INT_PIZZA_ID);
 
-        Assert.assertEquals(response.getError(),Data.BAD_REQUEST_ERROR);
+        Assert.assertEquals(response.getError(), Data.BAD_REQUEST_ERROR);
     }
+
     @Epic(value = "Negative Api Test")
     @Test
     public void getPizzaByIdWithASCII() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.CLIENT_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.ASCII_PIZZA_ID);
 
-        Assert.assertEquals(response.getError(),Data.BAD_REQUEST_ERROR);
-
-
+        Assert.assertEquals(response.getError(), Data.BAD_REQUEST_ERROR);
     }
+
     @Epic(value = "Positive Api Test")
     @Test(priority = 2)
     public void getCafeById() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
         CafeDto response = getCafeByIdRequest(cafeId);
-
-
     }
+
     @Epic(value = "Negative Api Test")
     @Test
     public void getCafeByIncorrectId() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.SERVER_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.INCORRECT_CAFE_ID);
 
-       Assert.assertEquals(response.getError(),Data.EXPECTED_SERVER_ERROR);
-
-
+        Assert.assertEquals(response.getError(), Data.EXPECTED_SERVER_ERROR);
     }
+
     @Epic(value = "Negative Api Test")
     @Test
     public void getCafeByNotIntId() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.CLIENT_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.NOT_INT_CAFE_ID);
 
-        Assert.assertEquals(response.getError(),Data.BAD_REQUEST_ERROR);
-
-
+        Assert.assertEquals(response.getError(), Data.BAD_REQUEST_ERROR);
     }
+
     @Epic(value = "Negative Api Test")
     @Test
     public void getCafeByIdWithASCII() {
-
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.responseSpec(Data.CLIENT_ERROR_CODE));
 
         ErrorDto response = incorrectRequests(Data.ASCII_CAFE_ID);
 
-        Assert.assertEquals(response.getError(),Data.BAD_REQUEST_ERROR);
+        Assert.assertEquals(response.getError(), Data.BAD_REQUEST_ERROR);
     }
+
     @Epic(value = "Positive Api Test")
     @Test(priority = 2)
-    public void checkPizzaIsAsExpected(){
+    public void checkPizzaIsAsExpected() {
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
@@ -164,11 +153,12 @@ public class ApiTests extends BaseMethods {
         PizzaDto responseForOnePizza = getPizzaByIdRequest(pizzaId);
 
         assertTrue(responseForAllPizzas.toString().contains(responseForOnePizza.toString()));
-        assertEquals(responseForAllPizzas.get(0).getName(),responseForOnePizza.getName());
+        assertEquals(responseForAllPizzas.get(0).getName(), responseForOnePizza.getName());
     }
+
     @Epic(value = "Positive Api Test")
     @Test(priority = 2)
-    public void checkCafeIsAsExpected(){
+    public void checkCafeIsAsExpected() {
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
@@ -177,14 +167,11 @@ public class ApiTests extends BaseMethods {
 
         CafeDto responseForOneCafe = getCafeByIdRequest(cafeId);
 
-//        assertTrue(responseForAllCafes.toString().contains(responseForOneCafe.toString()));
-//        assertEquals(responseForAllCafes.get(0).getName(),responseForOneCafe.getName());
-
     }
+
     @Epic(value = "Positive Api Test")
     @Test
-    public void checkEveryCafeHasAtLeastOnePizza(){
-
+    public void checkEveryCafeHasAtLeastOnePizza() {
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
@@ -195,18 +182,16 @@ public class ApiTests extends BaseMethods {
                     "Cafe " + cafe.getName() + "does not have any pizza");
         }
     }
+
     @Epic(value = "Positive Api Test")
     @Test
-    public void checkAndPrintTheCheapestPizza(){
-
+    public void checkAndPrintTheCheapestPizza() {
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
 
         List<PizzaDto> responseForAllPizzas = getAllPizzasRequest();
 
         System.out.println(findCheapestPizza(responseForAllPizzas).getName());
-
     }
-
 
 }

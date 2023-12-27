@@ -11,7 +11,6 @@ import java.util.ArrayList;
 @Builder
 @ToString
 public class CafeDto {
-
     public int id;
     public String name;
     public String city;

@@ -33,47 +33,43 @@ public class BasePage {
         page.waitForSelector(selector, new Page.WaitForSelectorOptions().setState(WaitForSelectorState.VISIBLE));
     }
 
-    public void clickOnHomeLink(){
+    public void clickOnHomeLink() {
         homeLink.click();
     }
 
-    public void goToCafePage(){
+    public void goToCafePage() {
         cafeLink.click();
     }
 
-    public void goToPizzaPage(){
+    public void goToPizzaPage() {
         pizzaLink.click();
     }
 
-
-    public void goToLoginPage(){
+    public void goToLoginPage() {
         loginLink.click();
         page.waitForLoadState(LoadState.LOAD);
     }
 
-    public void clickOnHeaderLogo(){
+    public void clickOnHeaderLogo() {
         headerLogo.click();
     }
 
-    public void clickOnFooterLogo(){
+    public void clickOnFooterLogo() {
         footerLogo.click();
     }
 
     public boolean isTextOnPage(String text) {
         String pageContent = page.textContent("body");
-
         return pageContent.contains(text);
     }
 
-    public boolean isTextNotOnPage(String text){
+    public boolean isTextNotOnPage(String text) {
         String pageContent = page.textContent("body");
-
         return !pageContent.contains(text);
     }
 
-    public int rowCountInTable (){
-        return  rowsInTable.count();
+    public int rowCountInTable() {
+        return rowsInTable.count();
     }
-
 
 }

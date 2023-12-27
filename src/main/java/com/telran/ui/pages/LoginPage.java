@@ -10,6 +10,7 @@ public class LoginPage extends BasePage {
     public Locator loginBtn;
     public Locator logoutBtn;
     public Locator loginTitle;
+
     public LoginPage(Page page) {
         super(page);
         this.usernameInput = page.locator("#username");
@@ -21,18 +22,16 @@ public class LoginPage extends BasePage {
 
     }
 
-    public LoginPage logInAccount (String username,String password){
+    public LoginPage logInAccount(String username, String password) {
         usernameInput.fill(username);
         passwordInput.fill(password);
         loginBtn.click();
         return this;
     }
 
-    public LoginPage logOutAccount(){
+    public LoginPage logOutAccount() {
         logoutBtn.click();
         return this;
     }
-
-
 
 }

@@ -2,14 +2,14 @@ package com.telran.ui.tests;
 
 import com.telran.ui.pages.HomePage;
 import com.telran.ui.pages.LoginPage;
-import testdata.Constants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import testdata.Constants;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertTrue;
 
 
-public class LoginTest extends TestBase{
+public class LoginTests extends TestBase {
 
     LoginPage loginPage;
     HomePage homePage;
@@ -23,7 +23,7 @@ public class LoginTest extends TestBase{
 
     @Test
     public void successLogin() {
-        loginPage.logInAccount(Constants.CORRECT_USERNAME,Constants.CORRECT_PASSWORD);
+        loginPage.logInAccount(Constants.CORRECT_USERNAME, Constants.CORRECT_PASSWORD);
         assertTrue(homePage.headerLogo.innerText().contains(Constants.LOGO_TEXT));
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
         loginPage.goToLoginPage();
@@ -31,8 +31,8 @@ public class LoginTest extends TestBase{
     }
 
     @Test
-    public void successLogout(){
-        loginPage.logInAccount(Constants.CORRECT_USERNAME,Constants.CORRECT_PASSWORD);
+    public void successLogout() {
+        loginPage.logInAccount(Constants.CORRECT_USERNAME, Constants.CORRECT_PASSWORD);
         loginPage.goToLoginPage();
         assertTrue(loginPage.loginTitle.innerText().contains(Constants.CORRECT_USERNAME));
         loginPage.logOutAccount();
@@ -41,58 +41,54 @@ public class LoginTest extends TestBase{
     }
 
     @Test
-    public void LoginWithAdminCreds(){
-        loginPage.logInAccount(Constants.ADMIN_USERNAME,Constants.CORRECT_PASSWORD);
+    public void loginWithAdminCreds() {
+        loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         assertTrue(homePage.headerLogo.innerText().contains(Constants.LOGO_TEXT));
         assertTrue(homePage.h1Title.innerText().contains(Constants.H1_TEXT));
         loginPage.goToLoginPage();
         assertTrue(loginPage.loginTitle.innerText().contains(Constants.ADMIN_USERNAME));
     }
+
     @Test
-    public void incorrectLogin(){
-        loginPage.logInAccount(Constants.INCORRECT_USERNAME,Constants.INCORRECT_PASSWORD);
+    public void incorrectLogin() {
+        loginPage.logInAccount(Constants.INCORRECT_USERNAME, Constants.INCORRECT_PASSWORD);
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
 
     @Test
-    public void loginWithEmptyValues(){
-        loginPage.logInAccount("","");
+    public void loginWithEmptyValues() {
+        loginPage.logInAccount("", "");
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
 
     @Test
-    public void loginWithSpaces(){
-        loginPage.logInAccount(" " + Constants.CORRECT_USERNAME + " "," " + Constants.CORRECT_PASSWORD + " ");
-        assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
-    }
-
-
-    @Test
-    public void tryXssScriptOnLoginFields(){
-        loginPage.logInAccount(Constants.XSS_SCRIPT,Constants.XSS_SCRIPT);
+    public void loginWithSpaces() {
+        loginPage.logInAccount(" " + Constants.CORRECT_USERNAME + " ", " " + Constants.CORRECT_PASSWORD + " ");
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
 
     @Test
-    public void trySqlInjectionOnLoginFields(){
-        loginPage.logInAccount(Constants.SQL_INJECTION,Constants.SQL_INJECTION);
+    public void tryXssScriptOnLoginFields() {
+        loginPage.logInAccount(Constants.XSS_SCRIPT, Constants.XSS_SCRIPT);
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
-
 
     @Test
-    public void LoginWithHighRegistryLetters(){
-        loginPage.logInAccount(Constants.CORRECT_USERNAME.toUpperCase(),
-                Constants.CORRECT_PASSWORD.toUpperCase());
+    public void trySqlInjectionOnLoginFields() {
+        loginPage.logInAccount(Constants.SQL_INJECTION, Constants.SQL_INJECTION);
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
-
 
     @Test
-    public void loginWithASCIISymbols(){
-        loginPage.logInAccount(Constants.ASCII_SYMBOLS,Constants.ASCII_SYMBOLS);
+    public void loginWithHighRegistryLetters() {
+        loginPage.logInAccount(Constants.CORRECT_USERNAME.toUpperCase(), Constants.CORRECT_PASSWORD.toUpperCase());
         assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
     }
 
+    @Test
+    public void loginWithASCIISymbols() {
+        loginPage.logInAccount(Constants.ASCII_SYMBOLS, Constants.ASCII_SYMBOLS);
+        assertTrue(loginPage.loginError.innerText().contains(Constants.LOGIN_ERROR_TEXT));
+    }
 
 }

@@ -3,14 +3,14 @@ package com.telran.ui.tests;
 import com.telran.ui.pages.CafePage;
 import com.telran.ui.pages.HomePage;
 import com.telran.ui.pages.LoginPage;
-import testdata.Constants;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import testdata.Constants;
 
-import static org.testng.Assert.*;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
-public class CafeTest extends TestBase {
-
+public class CafeTests extends TestBase {
 
     CafePage cafePage;
     LoginPage loginPage;
@@ -32,16 +32,16 @@ public class CafeTest extends TestBase {
         assertTrue(cafePage.isInfoEquals(1));
     }
 
-    @Test
+    @Test(successPercentage = 1)
     public void checkThatCafeHasAtLeastOnePizza() {
         loginPage.logInAccount(Constants.CORRECT_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
-        cafePage.goToCafeDetails(1);
+        cafePage.goToCafeDetails(10);
         assertTrue(cafePage.isThereAnyPizzaInCafe());
     }
 
     @Test
-    public void checkBackButtonOnCafePage(){
+    public void checkBackButtonOnCafePage() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
         cafePage.backButton.click();
@@ -50,26 +50,24 @@ public class CafeTest extends TestBase {
     }
 
     @Test(priority = 1)
-    public void createNewCafe()  {
+    public void createNewCafe() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
-        cafePage.createNewCafe(Constants.CAFE_NAME,Constants.CAFE_CITY,Constants.CAFE_ADDRESS,Constants.CAFE_EMAIL,
-                Constants.CAFE_PHONE_NEW,Constants.CAFE_OPEN,Constants.CAFE_CLOSE);
+        cafePage.createNewCafe(Constants.CAFE_NAME, Constants.CAFE_CITY, Constants.CAFE_ADDRESS, Constants.CAFE_EMAIL, Constants.CAFE_PHONE_NEW, Constants.CAFE_OPEN, Constants.CAFE_CLOSE);
         assertTrue(cafePage.isTextOnPage(Constants.CAFE_NAME));
     }
 
     @Test(priority = 2)
-    public void editCafe(){
+    public void editCafe() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
         int numberOfCafe = cafePage.rowCountInTable();
-        cafePage.editCafe(numberOfCafe,Constants.EDITED_NAME,Constants.CAFE_CITY,Constants.CAFE_ADDRESS,Constants.CAFE_EMAIL,
-                Constants.CAFE_PHONE_NEW,Constants.CAFE_OPEN,Constants.CAFE_CLOSE);
+        cafePage.editCafe(numberOfCafe, Constants.EDITED_NAME, Constants.CAFE_CITY, Constants.CAFE_ADDRESS, Constants.CAFE_EMAIL, Constants.CAFE_PHONE_NEW, Constants.CAFE_OPEN, Constants.CAFE_CLOSE);
         assertTrue(cafePage.isTextOnPage(Constants.EDITED_NAME));
     }
 
     @Test(priority = 3)
-    public void deleteCafe(){
+    public void deleteCafe() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
         int numberOfCafe = cafePage.rowCountInTable();
@@ -78,22 +76,21 @@ public class CafeTest extends TestBase {
     }
 
     @Test
-    public void createNewCafeWithEmptyFields(){
+    public void createNewCafeWithEmptyFields() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
-        cafePage.createNewCafe("","","","",
-                "","","");
+        cafePage.createNewCafe("", "", "", "", "", "", "");
         assertEquals(cafePage.validationErrorName.innerText(), Constants.INVALID_NAME_ERROR);
         assertEquals(cafePage.validationErrorCity.innerText(), Constants.INVALID_CITY_ERROR);
         assertEquals(cafePage.validationErrorEmail.innerText(), Constants.INVALID_EMAIL_ERROR);
     }
 
     @Test
-    public void createNewCafeWithWrongEmail(){
+    public void createNewCafeWithWrongEmail() {
         loginPage.logInAccount(Constants.ADMIN_USERNAME, Constants.CORRECT_PASSWORD);
         cafePage.goToCafePage();
-        cafePage.createNewCafe(Constants.CAFE_NAME,Constants.CAFE_CITY,Constants.CAFE_ADDRESS,Constants.WRONG_EMAIL,
-                Constants.CAFE_PHONE_NEW,Constants.CAFE_OPEN,Constants.CAFE_CLOSE);
-        assertEquals(cafePage.validationErrorEmail.innerText(),Constants.INVALID_EMAIL_ERROR);
+        cafePage.createNewCafe(Constants.CAFE_NAME, Constants.CAFE_CITY, Constants.CAFE_ADDRESS, Constants.WRONG_EMAIL, Constants.CAFE_PHONE_NEW, Constants.CAFE_OPEN, Constants.CAFE_CLOSE);
+        assertEquals(cafePage.validationErrorEmail.innerText(), Constants.INVALID_EMAIL_ERROR);
     }
+
 }

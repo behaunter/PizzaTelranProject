@@ -1,11 +1,9 @@
 package com.telran.ui.tests;
 
 import com.microsoft.playwright.*;
-import io.qameta.allure.Step;
 import testdata.Constants;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-
 
 
 public class TestBase {
@@ -15,9 +13,9 @@ public class TestBase {
     private BrowserContext context;
     private Boolean isTraceEnabled = false;
 
-    @Step("Starting Browser")
+
     @BeforeClass
-    public void  setUp(){
+    public void setUp() {
 
         browser = Playwright
                 .create()
@@ -41,10 +39,10 @@ public class TestBase {
     }
 
     //closing browser after tests
-    @Step("Closing Browser")
+
     @AfterClass
-    public void tearDown(){
-        if (browser != null){
+    public void tearDown() {
+        if (browser != null) {
             browser.close();
             browser = null;
         }

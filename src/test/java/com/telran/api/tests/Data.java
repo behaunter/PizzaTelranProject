@@ -1,7 +1,6 @@
 package com.telran.api.tests;
 
 public class Data {
-
     public static final String URL = "http://pizza.telran-edu.de:2222/api/";
     public static final int SERVER_ERROR_CODE = 500;
     public static final int CLIENT_ERROR_CODE = 400;

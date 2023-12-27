@@ -9,7 +9,6 @@ import lombok.*;
 @Builder
 @ToString
 public class ErrorDto {
-
     public String timestamp;
     public int status;
     public String error;
