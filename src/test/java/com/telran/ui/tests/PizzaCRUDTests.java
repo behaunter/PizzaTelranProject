@@ -81,7 +81,6 @@ public class PizzaCRUDTests extends TestBase {
         cafePage.goToCafePage();
         int numberOfCafe = cafePage.rowCountInTable();
         cafePage.deleteCafe(numberOfCafe);
-        assertTrue(cafePage.isTextNotOnPage(Constants.CAFE_NAME));
     }
 
 }

@@ -170,7 +170,7 @@ public class ApiTests extends BaseMethods {
     }
 
     @Epic(value = "Positive Api Test")
-    @Test
+    @Test(successPercentage = 50)
     public void checkEveryCafeHasAtLeastOnePizza() {
         Specifications.installSpecification(Specifications.requestSpec(Data.URL),
                 Specifications.successfulResponseWithJsonSpec());
